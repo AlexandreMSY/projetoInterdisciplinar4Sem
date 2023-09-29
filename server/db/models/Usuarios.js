@@ -1,10 +1,10 @@
 const { dbConexao } = require("../dbConexao");
 const { DataTypes } = require("sequelize");
 
-const Pacientes = dbConexao.define(
-  "Pacientes",
+const Usuarios = dbConexao.define(
+  "Usuarios",
   {
-    paciente_id: {
+    usuario_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -37,4 +37,4 @@ const Pacientes = dbConexao.define(
   }
 );
 
-module.exports = Pacientes
+module.exports = Usuarios
