@@ -1,0 +1,34 @@
+const Usuarios = require("../../db/models/Usuarios");
+const { procurarUsuario } = require("./procurarUsuario");
+
+const atualizarUsuario = async (autenticacao, novosDados) => {
+  const { senha, email } = autenticacao;
+
+  const usuario = await procurarUsuario(email, senha);
+  const usuarioEncontrado = usuario.count;
+
+  if (usuarioEncontrado) {
+    const dadosAModificar = {};
+
+    //verifica os dados que serão atualizados e atribui as chaves no objeto dadosAModificar
+    //https://masteringjs.io/tutorials/fundamentals/foreach-object
+    Object.keys(novosDados).forEach(
+      (chave) => (dadosAModificar[chave] = novosDados[chave])
+    );
+
+    //query UPDATE
+    //https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#simple-update-queries
+    await Usuarios.update(dadosAModificar, {
+      where: {
+        email: email,
+        senha: senha,
+      },
+    });
+
+    return 
+  }
+};
+
+module.exports = {
+  atualizarUsuario
+}

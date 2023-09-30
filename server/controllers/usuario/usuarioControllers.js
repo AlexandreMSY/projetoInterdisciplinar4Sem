@@ -6,7 +6,7 @@ const registrarUsuario = async (req, res) => {
   const { nome, senha, email, telefone, dataNascimento } = req.body;
 
   try {
-    const sucesso = await criarUsuario({
+    const usuarioCriado = await criarUsuario({
       nome: nome,
       senha: senha,
       email: email,
@@ -14,9 +14,11 @@ const registrarUsuario = async (req, res) => {
       dataNascimento: dataNascimento,
     });
 
-    res
-      .status(200)
-      .json({ sucesso: sucesso, mensagem: "Usuario criado com sucesso" });
+    res.status(200).json({
+      sucesso: true,
+      mensagem: "Usuario criado com sucesso",
+      usuarioCriado: usuarioCriado,
+    });
   } catch (erro) {
     res.status(400).json({ sucesso: false, mensagem: erro });
   }

@@ -4,7 +4,7 @@ const criarUsuario = async (cadastro) => {
   const { nome, senha, email, telefone, dataNascimento } = cadastro;
 
   try {
-    await Usuarios.create({
+    const novoUsuario = await Usuarios.create({
       nome: nome,
       senha: senha,
       email: email,
@@ -12,11 +12,14 @@ const criarUsuario = async (cadastro) => {
       data_nascimento: dataNascimento,
     });
 
-    return true
+    return novoUsuario.toJSON();
   } catch (error) {
-    let erros = {}
-    error.errors.map(erro => {erros[erro.path] = erro.message})
-    //console.log(erros);
+    let erros = {};
+
+    error.errors.map((erro) => {
+      erros[erro.path] = erro.message;
+    });
+
     throw erros;
   }
 };
