@@ -14,8 +14,10 @@ const criarUsuario = async (cadastro) => {
 
     return true
   } catch (error) {
-    const mensagemDeErro = error.message
-    throw new Error(mensagemDeErro);
+    let erros = {}
+    error.errors.map(erro => {erros[erro.path] = erro.message})
+    //console.log(erros);
+    throw erros;
   }
 };
 

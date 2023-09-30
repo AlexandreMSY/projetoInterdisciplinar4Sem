@@ -5,7 +5,7 @@ const criarUsuario = require("../../services/usuario/criarUsuario");
 const registrarUsuario = async (req, res) => {
   const { nome, senha, email, telefone, dataNascimento } = req.body;
 
-  try{
+  try {
     const sucesso = await criarUsuario({
       nome: nome,
       senha: senha,
@@ -13,15 +13,12 @@ const registrarUsuario = async (req, res) => {
       telefone: telefone,
       dataNascimento: dataNascimento,
     });
-  
-    console.log(sucesso);
 
-    if(sucesso){
-      res.status(200).json({sucesso: sucesso, mensagem: "Usuario criado com sucesso"})
-    }
-  } catch (error) {
-    //console.log(error);
-    res.status(400).json({sucesso: false, mensagem: error.message})
+    res
+      .status(200)
+      .json({ sucesso: sucesso, mensagem: "Usuario criado com sucesso" });
+  } catch (erro) {
+    res.status(400).json({ sucesso: false, mensagem: erro });
   }
 };
 
