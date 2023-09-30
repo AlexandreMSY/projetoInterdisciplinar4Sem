@@ -8,27 +8,32 @@ const atualizarUsuario = async (autenticacao, novosDados) => {
   const usuarioEncontrado = usuario.count;
 
   if (usuarioEncontrado) {
-    const dadosAModificar = {};
+    try{
 
-    //verifica os dados que serão atualizados e atribui as chaves no objeto dadosAModificar
-    //https://masteringjs.io/tutorials/fundamentals/foreach-object
-    Object.keys(novosDados).forEach(
-      (chave) => (dadosAModificar[chave] = novosDados[chave])
-    );
-
-    //query UPDATE
-    //https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#simple-update-queries
-    await Usuarios.update(dadosAModificar, {
-      where: {
-        email: email,
-        senha: senha,
-      },
-    });
-
-    return 
+      const dadosAModificar = {};
+  
+      //verifica os dados que serão atualizados e atribui as chaves no objeto dadosAModificar
+      //https://masteringjs.io/tutorials/fundamentals/foreach-object
+      Object.keys(novosDados).forEach(
+        (chave) => (dadosAModificar[chave] = novosDados[chave])
+      );
+        
+      //query UPDATE
+      //https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#simple-update-queries
+      await Usuarios.update(dadosAModificar, {
+        where: {
+          email: email,
+          senha: senha,
+        },
+      });
+  
+      return true;
+    } catch (TypeError) {
+      throw new Error("novosDados não pode ser undefined")
+    }
+  } else {
+    return false;
   }
 };
 
-module.exports = {
-  atualizarUsuario
-}
+module.exports = atualizarUsuario;
