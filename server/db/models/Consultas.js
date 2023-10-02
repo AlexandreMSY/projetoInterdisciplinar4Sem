@@ -1,21 +1,22 @@
 const { dbConexao } = require("../dbConexao");
+const { DataTypes } = require("sequelize");
+const Usuarios = require('./Usuarios')
 
 const Consultas = dbConexao.define(
   "Consultas",
   {
     consulta_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.CHAR(36),
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
     },
-    paciente_paciente_id: {
-      type: DataTypes.INTEGER,
+    usuario_id: {
+      type: DataTypes.STRING(36),
       allowNull: false,
-      primaryKey: false,
       references: {
-        model: Paciente,
-        key: "paciente_id",
+        model: Usuarios,
+        key: "usuario_id",
       },
     },
     data_hora_marcada: {
@@ -35,5 +36,9 @@ const Consultas = dbConexao.define(
     timestamps: false,
   }
 );
+
+Usuarios.hasMany(Consultas)
+
+dbConexao.sync()
 
 module.exports = Consultas;

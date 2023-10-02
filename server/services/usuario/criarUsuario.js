@@ -13,10 +13,11 @@ const criarUsuario = async (cadastro) => {
     });
 
     return novoUsuario.toJSON();
-  } catch (error) {
+  } catch (erro) {
     let erros = {};
+    console.log(erro);
 
-    error.errors.map((erro) => {
+    erro.errors.map((erro) => {
       erros[erro.path] = erro.message;
     });
 

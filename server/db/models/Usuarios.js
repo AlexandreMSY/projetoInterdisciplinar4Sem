@@ -5,9 +5,10 @@ const Usuarios = dbConexao.define(
   "Usuarios",
   {
     usuario_id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.CHAR(36),
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
+      allowNull: false
     },
     nome: {
       type: DataTypes.STRING,
@@ -36,5 +37,7 @@ const Usuarios = dbConexao.define(
     timestamps: false,
   }
 );
+
+dbConexao.sync()
 
 module.exports = Usuarios
