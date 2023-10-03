@@ -1,6 +1,7 @@
 require("dotenv").config();
 const criarUsuario = require("../../services/usuario/criarUsuario");
 const servicoAtualizarUsuario = require("../../services/usuario/atualizarUsuario");
+const procurarUsuario = require("../../services/usuario/procurarUsuario");
 
 //POST
 const registrarUsuario = async (req, res) => {
@@ -40,20 +41,47 @@ const atualizarUsuario = async (req, res) => {
     );
 
     if (usuarioAtualizado) {
-      res
-        .status(200)
-        .json({
-          sucesso: true,
-          mensagem: "Usuário alterado",
-          dadosAlterados: novosDados,
-        });
+      res.status(200).json({
+        sucesso: true,
+        mensagem: "Usuário alterado",
+        dadosAlterados: novosDados,
+      });
     }
-  } catch (e) {
-    res.status(400).json({ sucesso: false, mensagem: e });
+  } catch (erro) {
+    res.status(400).json({ sucesso: false, mensagem: erro });
+  }
+};
+
+//POST
+const login = async (req, res) => {
+  try {
+    const { email, senha } = req.body;
+    const usuarioEncontrado = await procurarUsuario(email, senha, true);
+
+    if (
+      usuarioEncontrado.usuarioEncontrado &&
+      usuarioEncontrado.tokenDeAcesso
+    ) {
+      res.status(200).json({
+        sucesso: true,
+        tokenDeAcesso: usuarioEncontrado.tokenDeAcesso,
+      });
+    } else {
+      res.status(401).json({
+        sucesso: false,
+        tokenDeAcesso: undefined,
+      });
+    }
+  } catch (erro) {
+    res.status(400).json({
+      sucesso: false,
+      erro: erro,
+    });
   }
 };
 
 module.exports = {
   registrarUsuario,
   atualizarUsuario,
+  login,
 };

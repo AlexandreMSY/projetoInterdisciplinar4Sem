@@ -5,7 +5,7 @@ function gerarTokenAcesso(usuario) {
   return jwt.sign(usuario, process.env.CHAVE_PRIVADA, { expiresIn: "1y" });
 }
 
-const procurarUsuario = async (email, senha) => {
+const procurarUsuario = async (email, senha, gerarJwt) => {
   try {
     const query = await Usuarios.findAndCountAll({
       where: {
@@ -15,12 +15,16 @@ const procurarUsuario = async (email, senha) => {
     });
 
     const usuarioEncontrado = query.rows[0].dataValues;
-    const tokenDeAcesso = gerarTokenAcesso(usuarioEncontrado);
+    const tokenDeAcesso = gerarJwt
+      ? gerarTokenAcesso(usuarioEncontrado)
+      : undefined;
 
-    return {
-      usuarioEncontrado: usuarioEncontrado,
-      tokenDeAcesso: tokenDeAcesso,
-    };
+    return gerarJwt
+      ? {
+          usuarioEncontrado: usuarioEncontrado,
+          tokenDeAcesso: tokenDeAcesso,
+        }
+      : { usuarioEncontrado: usuarioEncontrado };
   } catch (erro) {
     if (erro instanceof TypeError)
       return {
@@ -30,13 +34,4 @@ const procurarUsuario = async (email, senha) => {
   }
 };
 
-/*const test = async () => {
-  const test = await procurarUsuario("lol@gmail.com", "lol");
-  console.log(test);
-};
-
-test();*/
-
-module.exports = {
-  procurarUsuario,
-};
+module.exports = procurarUsuario;
