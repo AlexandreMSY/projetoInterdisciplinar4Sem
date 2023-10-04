@@ -7,14 +7,16 @@ function gerarTokenAcesso(usuario) {
 
 const procurarUsuario = async (email, senha, gerarJwt) => {
   try {
-    const query = await Usuarios.findAndCountAll({
+    const query = await Usuarios.findAll({
+      raw: true,
       where: {
         email: email,
         senha: senha,
       },
     });
 
-    const usuarioEncontrado = query.rows[0].dataValues;
+    const usuarioEncontrado = query[0];
+    console.log(usuarioEncontrado);
     const tokenDeAcesso = gerarJwt
       ? gerarTokenAcesso(usuarioEncontrado)
       : undefined;

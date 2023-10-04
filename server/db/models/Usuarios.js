@@ -38,6 +38,4 @@ const Usuarios = dbConexao.define(
   }
 );
 
-dbConexao.sync()
-
 module.exports = Usuarios

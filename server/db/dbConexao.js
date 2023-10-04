@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 require("dotenv").config();
 
-module.exports.dbConexao = new Sequelize(
+const dbConexao = new Sequelize(
   process.env.DB_DATABASE,
   process.env.DB_USERNAME,
   process.env.DB_PASSWORD,
@@ -10,3 +10,13 @@ module.exports.dbConexao = new Sequelize(
     dialect: "mysql",
   }
 );
+
+const sync = async () => {
+  const db = dbConexao;
+  db.sync()
+}
+
+module.exports = {
+  dbConexao,
+  sync
+};

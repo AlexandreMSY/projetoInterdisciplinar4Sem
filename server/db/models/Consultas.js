@@ -1,6 +1,6 @@
 const { dbConexao } = require("../dbConexao");
 const { DataTypes } = require("sequelize");
-const Usuarios = require('./Usuarios')
+const Usuarios = require("./Usuarios");
 
 const Consultas = dbConexao.define(
   "Consultas",
@@ -12,14 +12,14 @@ const Consultas = dbConexao.define(
       primaryKey: true,
     },
     usuario_id: {
-      type: DataTypes.STRING(36),
+      type: DataTypes.CHAR(36),
       allowNull: false,
       references: {
         model: Usuarios,
         key: "usuario_id",
       },
     },
-    data_hora_marcada: {
+    data_hora: {
       type: DataTypes.DATE,
       allowNull: false,
     },
@@ -37,8 +37,6 @@ const Consultas = dbConexao.define(
   }
 );
 
-Usuarios.hasMany(Consultas)
-
-dbConexao.sync()
+Usuarios.hasMany(Consultas);
 
 module.exports = Consultas;
