@@ -16,7 +16,6 @@ const procurarUsuario = async (email, senha, gerarJwt) => {
     });
 
     const usuarioEncontrado = query[0];
-    console.log(usuarioEncontrado);
     const tokenDeAcesso = gerarJwt
       ? gerarTokenAcesso(usuarioEncontrado)
       : undefined;

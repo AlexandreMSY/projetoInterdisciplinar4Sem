@@ -4,10 +4,10 @@ const { procurarUsuario } = require("./procurarUsuario");
 const atualizarUsuario = async (autenticacao, novosDados) => {
   const { senha, email } = autenticacao;
   const usuario = await procurarUsuario(email, senha);
-  const usuarioEncontrado = usuario.usuarioEncontrado
+  const usuarioEncontrado = usuario.usuarioEncontrado;
 
   if (usuarioEncontrado) {
-    try{
+    try {
       const dadosAModificar = {};
 
       //verifica os dados que serão atualizados e atribui as chaves no objeto dadosAModificar
@@ -24,10 +24,12 @@ const atualizarUsuario = async (autenticacao, novosDados) => {
           senha: senha,
         },
       });
-  
+
       return true;
-    } catch (TypeError) {
-      throw new Error("novosDados não pode ser undefined")
+    } catch (erro) {
+      if (erro instanceof TypeError) {
+        throw new Error("novosDados não pode ser undefined");
+      }
     }
   } else {
     return false;
