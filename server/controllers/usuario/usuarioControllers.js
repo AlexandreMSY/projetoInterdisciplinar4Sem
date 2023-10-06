@@ -46,6 +46,11 @@ const atualizarUsuario = async (req, res) => {
         mensagem: "Usuário alterado",
         dadosAlterados: novosDados,
       });
+    } else {
+      res.status(404).json({
+        sucesso: false,
+        mensagem: "Usuário não encontrado"
+      })
     }
   } catch (erro) {
     res.status(400).json({ sucesso: false, mensagem: erro });

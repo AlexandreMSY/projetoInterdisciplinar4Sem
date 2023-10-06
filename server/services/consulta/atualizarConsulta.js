@@ -1,15 +1,27 @@
 const Consultas = require("../../db/models/Consultas");
+const Usuarios = require("../../db/models/Usuarios");
 const procurarUsuario = require("../usuario/procurarUsuario");
 //const jwt = require("jsonwebtoken");
 
 const atualizarConsulta = async (autenticacao, consultaId, novosDados) => {
   const { senha, email } = autenticacao;
-  const usuario = await procurarUsuario(email, senha);
-  const usuarioEncontrado = usuario.usuarioEncontrado
+  const usuarioEncontrado = await Usuarios.findOne({
+    raw: true,
+    where: {
+      senha: senha,
+      email: email,
+    },
+  });
+  const consultaEncontrada = await Consultas.findOne({
+    raw: true,
+    where: {
+      consulta_id: consultaId,
+    },
+  });
 
   //console.log(usuarioEncontrado);
 
-  if (usuarioEncontrado) {
+  if (usuarioEncontrado && consultaEncontrada) {
     try {
       const dadosAModificar = {};
 
@@ -17,11 +29,13 @@ const atualizarConsulta = async (autenticacao, consultaId, novosDados) => {
         (chave) => (dadosAModificar[chave] = novosDados[chave])
       );
 
-      await Consultas.update(dadosAModificar, {
+      const test = await Consultas.update(dadosAModificar, {
         where: {
           consulta_id: consultaId,
         },
       });
+
+      console.log(test);
 
       return true;
     } catch (erro) {
@@ -34,10 +48,4 @@ const atualizarConsulta = async (autenticacao, consultaId, novosDados) => {
   }
 };
 
-/*atualizarConsulta(
-  { senha: "teste", email: "teste" },
-  "b5a3fa2f-353c-430d-b4f1-8bfc0de5d522"
-  {especialidade: "Crazy",}
-);*/
-
-module.exports = atualizarConsulta
+module.exports = atualizarConsulta;
