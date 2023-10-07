@@ -50,18 +50,34 @@ const atualizarConsulta = async (req, res) => {
       consulta_id,
       novosDados
     );
+    const colunasAlteradas = consultaAtualizada.colunasAlteradas;
 
-    if (consultaAtualizada) {
+    if (colunasAlteradas) {
       res.status(200).json({
         sucesso: consultaAtualizada,
         mensagem: "Consulta atualizada",
         novosDados: novosDados,
       });
     } else {
-      res.status(404).json({
-        sucesso: consultaAtualizada,
-        mensagem: "Usuário ou Consulta não encontrado",
-      });
+      const mensagem = consultaAtualizada.mensagem;
+
+      if (mensagem === "Dados já atribuidos na coluna"){
+        res.status(200).json({
+          sucesso: true,
+          consultaAtualizada: consultaAtualizada,
+          mensagem: mensagem
+        })
+      } else if (mensagem === "Usuário não encontrado"){
+        res.status(401).json({
+          sucesso: colunasAlteradas,
+          mensagem: mensagem
+        })
+      } else {
+        res.status(404).json({
+          sucesso: colunasAlteradas,
+          mensagem: "Consulta não encontrada"
+        })
+      }
     }
   } catch (erro) {
     //console.log(erro);
@@ -75,5 +91,5 @@ const atualizarConsulta = async (req, res) => {
 module.exports = {
   registrarConsulta,
   retornarConsultas,
-  atualizarConsulta
+  atualizarConsulta,
 };

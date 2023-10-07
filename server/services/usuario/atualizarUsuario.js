@@ -3,8 +3,7 @@ const { procurarUsuario } = require("./procurarUsuario");
 
 const atualizarUsuario = async (autenticacao, novosDados) => {
   const { senha, email } = autenticacao;
-  const usuario = await procurarUsuario(email, senha);
-  const usuarioEncontrado = usuario.usuarioEncontrado;
+  const usuarioEncontrado = await procurarUsuario(email, senha);
 
   if (usuarioEncontrado) {
     try {

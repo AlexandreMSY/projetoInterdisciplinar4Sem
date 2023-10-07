@@ -25,7 +25,7 @@ const procurarUsuario = async (email, senha, gerarJwt) => {
           usuarioEncontrado: usuarioEncontrado,
           tokenDeAcesso: tokenDeAcesso,
         }
-      : { usuarioEncontrado: usuarioEncontrado };
+      : usuarioEncontrado ;
   } catch (erro) {
     if (erro instanceof TypeError)
       return {
