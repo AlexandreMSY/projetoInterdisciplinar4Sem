@@ -1,6 +1,7 @@
 const criarConsulta = require("../../services/consulta/criarConsulta");
 const servicoRetornarConsultas = require("../../services/consulta/retornarConsultas");
 const servicoAtualizarConsulta = require("../../services/consulta/atualizarConsulta");
+const servicoCancelarConsulta = require("../../services/consulta/cancelarConsulta");
 
 //POST
 const registrarConsulta = async (req, res) => {
@@ -61,22 +62,22 @@ const atualizarConsulta = async (req, res) => {
     } else {
       const mensagem = consultaAtualizada.mensagem;
 
-      if (mensagem === "Dados já atribuidos na coluna"){
+      if (mensagem === "Dados já atribuidos na coluna") {
         res.status(200).json({
           sucesso: true,
           consultaAtualizada: consultaAtualizada,
-          mensagem: mensagem
-        })
-      } else if (mensagem === "Usuário não encontrado"){
+          mensagem: mensagem,
+        });
+      } else if (mensagem === "Usuário não encontrado") {
         res.status(401).json({
           sucesso: colunasAlteradas,
-          mensagem: mensagem
-        })
+          mensagem: mensagem,
+        });
       } else {
         res.status(404).json({
           sucesso: colunasAlteradas,
-          mensagem: "Consulta não encontrada"
-        })
+          mensagem: "Consulta não encontrada",
+        });
       }
     }
   } catch (erro) {
@@ -88,8 +89,45 @@ const atualizarConsulta = async (req, res) => {
   }
 };
 
+//DELETE
+const cancelarConsulta = async (req, res) => {
+  const { senha, email } = req.body.usuario;
+  const { consulta_id } = req.body;
+
+  const apagarColunas = await servicoCancelarConsulta(
+    {
+      senha: senha,
+      email: email,
+    },
+    consulta_id
+  );
+  const colunasApagadas = apagarColunas.colunasApagadas;
+
+  if (colunasApagadas) {
+    res.status(200).json({
+      consultaApagada: true,
+      mensagem: "Consulta cancelada",
+    });
+  } else {
+    const mensagem = apagarColunas.mensagem;
+
+    if (mensagem === "Usuário não encontrado") {
+      res.status(401).json({
+        colunasApagadas: false,
+        erro: "Erro na autenticação do usuário",
+      });
+    } else {
+      res.status(400).json({
+        colunasApagadas: false,
+        erro: "Consulta não encontrada"
+      });
+    }
+  }
+};
+
 module.exports = {
   registrarConsulta,
   retornarConsultas,
   atualizarConsulta,
+  cancelarConsulta
 };

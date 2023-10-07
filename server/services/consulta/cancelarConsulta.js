@@ -16,7 +16,10 @@ const cancelarConsulta = async (autenticacao, consultaId) => {
       ? { colunasApagadas: true }
       : { colunasApagadas: false };
   } else {
-    return { mensagem: "Usuário não encontrado" }
+    return { 
+      colunasApagadas: false,
+      mensagem: "Usuário não encontrado" 
+    }
   }
 };
 
