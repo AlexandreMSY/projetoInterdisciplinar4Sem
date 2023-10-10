@@ -1,5 +1,5 @@
 const Usuarios = require("../../db/models/Usuarios");
-const { procurarUsuario } = require("./procurarUsuario");
+const procurarUsuario = require("./procurarUsuario");
 
 const atualizarUsuario = async (autenticacao, novosDados) => {
   const { senha, email } = autenticacao;
