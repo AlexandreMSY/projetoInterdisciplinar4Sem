@@ -149,11 +149,11 @@ git clone https://github.com/AlexandreMSY/projetoInterdisciplinar4Sem.git
 - `telefone` - Telefone do usuário
 - `dataNascimento` - Data de nascimento do usuário. Padrão YYYY-MM-DD
 
-<details open>
+<details>
   <summary>Exemplo de Requisição e Resposta</summary>
   <h3>Requisição</h3>
-  <code>
-
+  
+  <pre><code>
     {
       "nome": "Usuario Teste",
       "senha": "senha1234",
@@ -161,12 +161,10 @@ git clone https://github.com/AlexandreMSY/projetoInterdisciplinar4Sem.git
       "telefone": "123456789",
       "dataNascimento": "1999-04-23"
     }
-
-  </code>
-  <br>
+  </code></pre>
+  
   <h3>Resposta</h3>
-  <code>
-
+  <pre><code>
     {
       {
         "sucesso": true,
@@ -181,9 +179,10 @@ git clone https://github.com/AlexandreMSY/projetoInterdisciplinar4Sem.git
         }
       }
     }
-
-  </code>
+  </code></pre>
 </details>
+
+<hr>
 
 ### **PUT** `/atualizarUsuario`</br>
 
@@ -196,15 +195,14 @@ git clone https://github.com/AlexandreMSY/projetoInterdisciplinar4Sem.git
   - `usuario_id`
   - `nome`
   - `senha`
-  - `senha`
+  - `email`
   - `telefone`
   - `data_nascimento` - Padrão YYYY-MM-DD
 
-<details open>
+<details>
   <summary>Exemplo de Requisição e Resposta</summary>
   <h3>Requisição</h3>
-  <code>
-
+  <pre><code>
     {
       "usuario": {
           "email": "usuarioteste@gmail.com",
@@ -215,11 +213,10 @@ git clone https://github.com/AlexandreMSY/projetoInterdisciplinar4Sem.git
           "email": "usuarioatualizado@gmail.com"
       }
     }
-
-  </code>
+  </code></pre>
+  
   <h3>Resposta</h3>
-  <code>
-
+  <pre><code>
     {
       "sucesso": true,
       "mensagem": "Usuário alterado",
@@ -228,9 +225,10 @@ git clone https://github.com/AlexandreMSY/projetoInterdisciplinar4Sem.git
         "email": "usuarioatualizado@gmail.com"
       }
     }
-
-  </code>
+  </code></pre>
 </details>
+
+<hr>
 
 ### **POST** `/login`</br>
 
@@ -240,29 +238,24 @@ Esta rota da API retorna um token **JWT** com os dados do usuário para ser util
 - `email` - Email do usuário cadastrado no banco de dados.
 - `senha` - Senha do usuário
 
-<details open>
+<details>
   <summary>Exemplo de Requisição e Resposta</summary>
   <h3>Requisição</h3>
-  <code>
-
+  <pre><code>
     {
       "email": "usuarioatualizado@gmail.com",
       "senha": "senha1234"
     }
-
-  </code>
+  </code></pre>
   <h3>Resposta</h3>
-  <code>
-
+  <pre><code>
     {
       "sucesso": true,
       "tokenDeAcesso": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoiNWUwYzViNmEtMjVlNy00OTVkLTljZDMtZTU5MjQ5YzIwM2RhIiwibm9tZSI6IkF0dWFsaXphciBVc3VhcmlvIiwic2VuaGEiOiJzZW5oYTEyMzQiLCJlbWFpbCI6InVzdWFyaW9hdHVhbGl6YWRvQGdtYWlsLmNvbSIsInRlbGVmb25lIjoiMTIzNDU2Nzg5IiwiZGF0YV9uYXNjaW1lbnRvIjoiMTk5OS0wNC0yM1QwMDowMDowMC4wMDBaIiwiaWF0IjoxNjk2OTExOTAzLCJleHAiOjE3Mjg0Njk1MDN9.WThhJ20fpORpQpyKV7duKrzxRqNgDCiOFBlpFJv0Xzg"
     }
-
-  </code>
+  </code></pre>
   <h3>Token <strong>JWT</strong> descifrado</h3>
-  <code>
-
+  <pre><code>
     {
       alg: "HS256",
       typ: "JWT"
@@ -278,8 +271,7 @@ Esta rota da API retorna um token **JWT** com os dados do usuário para ser util
       exp: 1728469503
     }.
     [signature]
-
-  </code>
+  </code></pre>
 </details>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
