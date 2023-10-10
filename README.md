@@ -135,17 +135,19 @@ git clone https://github.com/AlexandreMSY/projetoInterdisciplinar4Sem.git
 
 ### Especificação da API
 
+<!-- Usuarios -->
+
 <h3 align="center">/api/usuarios</h3>
 
 ### **POST** `/registrarUsuario`<br/>
 
 ### Corpo da Requisição
 
-- nome - Nome do usuário a ser registrado
-- senha - Senha do usuário para logar no sistema
-- email - Email do usuário
-- telefone - Telefone do usuário
-- dataNascimento - Data de nascimento do usuário. Padrão YYYY-MM-DD
+- `nome` - Nome do usuário a ser registrado
+- `senha` - Senha do usuário para logar no sistema
+- `email` - Email do usuário
+- `telefone` - Telefone do usuário
+- `dataNascimento` - Data de nascimento do usuário. Padrão YYYY-MM-DD
 
 <details open>
   <summary>Exemplo de Requisição e Resposta</summary>
@@ -161,6 +163,7 @@ git clone https://github.com/AlexandreMSY/projetoInterdisciplinar4Sem.git
     }
 
   </code>
+  <br>
   <h3>Resposta</h3>
   <code>
 
@@ -186,6 +189,98 @@ git clone https://github.com/AlexandreMSY/projetoInterdisciplinar4Sem.git
 
 ### Corpo da Requisição
 
+- `usuario` - Dados do usuário necessários localizar o usuário a ser modificado.
+  - `email` - Email do usuário a ser atualizado
+  - `senha` - Senha do usuário a ser atualizado
+- `novosDados` - Dados do usuário que serão atualizados. As chaves abaixo são todos os atributos do usuário que podem ser modificados.
+  - `usuario_id`
+  - `nome`
+  - `senha`
+  - `senha`
+  - `telefone`
+  - `data_nascimento` - Padrão YYYY-MM-DD
+
+<details open>
+  <summary>Exemplo de Requisição e Resposta</summary>
+  <h3>Requisição</h3>
+  <code>
+
+    {
+      "usuario": {
+          "email": "usuarioteste@gmail.com",
+          "senha": "senha1234"
+      },
+      "novosDados": {
+          "nome": "Atualizar Usuario",
+          "email": "usuarioatualizado@gmail.com"
+      }
+    }
+
+  </code>
+  <h3>Resposta</h3>
+  <code>
+
+    {
+      "sucesso": true,
+      "mensagem": "Usuário alterado",
+      "dadosAlterados": {
+        "nome": "Atualizar Usuario",
+        "email": "usuarioatualizado@gmail.com"
+      }
+    }
+
+  </code>
+</details>
+
+### **POST** `/login`</br>
+
+Esta rota da API retorna um token **JWT** com os dados do usuário para ser utilizado na aplicação front-end.
+
+### Corpo da Requisição
+- `email` - Email do usuário cadastrado no banco de dados.
+- `senha` - Senha do usuário
+
+<details open>
+  <summary>Exemplo de Requisição e Resposta</summary>
+  <h3>Requisição</h3>
+  <code>
+
+    {
+      "email": "usuarioatualizado@gmail.com",
+      "senha": "senha1234"
+    }
+
+  </code>
+  <h3>Resposta</h3>
+  <code>
+
+    {
+      "sucesso": true,
+      "tokenDeAcesso": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoiNWUwYzViNmEtMjVlNy00OTVkLTljZDMtZTU5MjQ5YzIwM2RhIiwibm9tZSI6IkF0dWFsaXphciBVc3VhcmlvIiwic2VuaGEiOiJzZW5oYTEyMzQiLCJlbWFpbCI6InVzdWFyaW9hdHVhbGl6YWRvQGdtYWlsLmNvbSIsInRlbGVmb25lIjoiMTIzNDU2Nzg5IiwiZGF0YV9uYXNjaW1lbnRvIjoiMTk5OS0wNC0yM1QwMDowMDowMC4wMDBaIiwiaWF0IjoxNjk2OTExOTAzLCJleHAiOjE3Mjg0Njk1MDN9.WThhJ20fpORpQpyKV7duKrzxRqNgDCiOFBlpFJv0Xzg"
+    }
+
+  </code>
+  <h3>Token <strong>JWT</strong> descifrado</h3>
+  <code>
+
+    {
+      alg: "HS256",
+      typ: "JWT"
+    }.
+    {
+      usuario_id: "5e0c5b6a-25e7-495d-9cd3-e59249c203da",
+      nome: "Atualizar Usuario",
+      senha: "senha1234",
+      email: "usuarioatualizado@gmail.com",
+      telefone: "123456789",
+      data_nascimento: "1999-04-23T00:00:00.000Z",
+      iat: 1696911903,
+      exp: 1728469503
+    }.
+    [signature]
+
+  </code>
+</details>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
