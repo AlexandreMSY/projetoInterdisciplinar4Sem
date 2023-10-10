@@ -141,7 +141,7 @@ git clone https://github.com/AlexandreMSY/projetoInterdisciplinar4Sem.git
 
 ### **POST** `/registrarUsuario`<br/>
 
-#### Corpo da Requisição
+##### Corpo da Requisição
 
 - `nome` - Nome do usuário a ser registrado
 - `senha` - Senha do usuário para logar no sistema
@@ -357,6 +357,8 @@ Esta rota retorna todas as consultas que estão atribuídas ao usuário.
   </code></pre>
 </details>
 
+<hr>
+
 ### **PUT** `/atualizarConsulta`
 
 Modifica uma consulta presente no banco de dados.
@@ -406,6 +408,8 @@ Modifica uma consulta presente no banco de dados.
     }
   </code></pre>
 </details>
+
+<hr>
 
 ### **DELETE** `/cancelarConsulta`
 
