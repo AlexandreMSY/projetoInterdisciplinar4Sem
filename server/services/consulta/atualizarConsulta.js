@@ -33,9 +33,7 @@ const atualizarConsulta = async (autenticacao, consultaId, novosDados) => {
       //verifica se os dados a serem atualizados já estão atribuidos na coluna
       const dadosJaAtribuidos = await Consultas.findOne({
         raw: true,
-        where: {
-          consulta_id: consultaId
-        }
+        where: verificaoDados
       });
 
       if (dadosJaAtribuidos) {
