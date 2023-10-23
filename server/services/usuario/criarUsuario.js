@@ -3,6 +3,8 @@ const Usuarios = require("../../db/models/Usuarios");
 const criarUsuario = async (cadastro) => {
   const { nome, senha, email, telefone, dataNascimento } = cadastro;
 
+  console.log(cadastro);
+
   try {
     const novoUsuario = await Usuarios.create({
       nome: nome,

@@ -61,7 +61,10 @@ const atualizarUsuario = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, senha } = req.body;
+    console.log(req.body);
     const usuarioEncontrado = await procurarUsuario(email, senha, true);
+
+    //console.log(usuarioEncontrado);
 
     if (
       usuarioEncontrado.usuarioEncontrado &&
@@ -70,6 +73,7 @@ const login = async (req, res) => {
       res.status(200).json({
         sucesso: true,
         tokenDeAcesso: usuarioEncontrado.tokenDeAcesso,
+        detalhesUsuario: usuarioEncontrado.detalhesUsuario
       });
     } else {
       res.status(401).json({

@@ -1,17 +1,57 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useSignIn } from "react-auth-kit";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import requisicaoPost from "../../hooks/function/requisicaoPost";
 
 const FormularioLogin = () => {
-  const navigate = useNavigate()
-  
+  const [input, setInput] = useState({});
+  const [erro, setErro] = useState("");
+  const signIn = useSignIn();
+  const navigate = useNavigate();
+
+  const pegarValorInput = (evento) => {
+    const nome = evento.target.name;
+    const valor = evento.target.value;
+
+    setInput((valores) => ({ ...valores, [nome]: valor }));
+  };
+
+  const login = async () => {
+    const corpoRequisicao = {
+      email: input.email,
+      senha: input.senha,
+    };
+
+    const resposta = await requisicaoPost(
+      "http://localhost:8000/api/usuario/login",
+      corpoRequisicao
+    );
+
+    if (resposta.sucesso) {
+      signIn({
+        token: resposta.tokenDeAcesso,
+        expiresIn: 8000,
+        tokenType: "Bearer",
+        authState: resposta.detalhesUsuario,
+      });
+
+      navigate("/secure");
+    } else {
+      setErro("Usuário não encontrado")
+    }
+  };
+
   return (
     <>
       <div className="d-flex flex-column justify-content-center mt-3">
         <span className="d-flex flex-row justify-content-end gap-3 mb-4">
           <p>Não possui uma conta?</p>
-          <button className="btn btn-primary" onClick={() => navigate("/cadastro")}>
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate("/cadastro")}
+          >
             Cadastrar
           </button>
         </span>
@@ -24,15 +64,30 @@ const FormularioLogin = () => {
             >
               @
             </span>
-            <input type="text" className="form-control" placeholder="Email" />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Email"
+              name="email"
+              onChange={pegarValorInput}
+            />
           </div>
           <label htmlFor="basic-url" className="form-label text-end">
             <Link to="/esquecisenha">Esqueceu a senha?</Link>
           </label>
           <div className="input-group mb-3">
-            <input type="password" className="form-control" placeholder="Senha" />
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Senha"
+              name="senha"
+              onChange={pegarValorInput}
+            />
           </div>
-          <button className="btn btn-primary">Login</button>
+          <button className="btn btn-primary" onClick={login}>
+            Login
+          </button>
+          {erro && <p className="text-center mt-3 text-danger">{erro}</p>}
         </div>
       </div>
     </>

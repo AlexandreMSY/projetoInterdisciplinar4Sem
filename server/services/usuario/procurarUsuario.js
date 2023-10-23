@@ -15,6 +15,8 @@ const procurarUsuario = async (email, senha, gerarJwt) => {
       },
     });
 
+    //console.log(query);
+
     const usuarioEncontrado = query[0];
     const tokenDeAcesso = gerarJwt
       ? gerarTokenAcesso(usuarioEncontrado)
@@ -24,8 +26,24 @@ const procurarUsuario = async (email, senha, gerarJwt) => {
       ? {
           usuarioEncontrado: usuarioEncontrado,
           tokenDeAcesso: tokenDeAcesso,
+          detalhesUsuario: {
+            usuario_id: usuarioEncontrado.usuario_id,
+            nome: usuarioEncontrado.nome,
+            email: usuarioEncontrado.email,
+            telefone: usuarioEncontrado.telefone,
+            data_nascimento: usuarioEncontrado.data_nascimento,
+          },
         }
-      : usuarioEncontrado ;
+      : {
+          usuarioEncontrado: usuarioEncontrado,
+          detalhesUsuario: {
+            usuario_id: usuarioEncontrado.usuario_id,
+            nome: usuarioEncontrado.nome,
+            email: usuarioEncontrado.email,
+            telefone: usuarioEncontrado.telefone,
+            data_nascimento: usuarioEncontrado.data_nascimento,
+          },
+        };
   } catch (erro) {
     if (erro instanceof TypeError)
       return {
