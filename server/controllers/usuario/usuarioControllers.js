@@ -1,7 +1,10 @@
 require("dotenv").config();
 const criarUsuario = require("../../services/usuario/criarUsuario");
 const servicoAtualizarUsuario = require("../../services/usuario/atualizarUsuario");
-const procurarUsuario = require("../../services/usuario/procurarUsuario");
+const {
+  procurarUsuario,
+  verificarExistenciaEmail,
+} = require("../../services/usuario/procurarUsuario");
 
 //POST
 const registrarUsuario = async (req, res) => {
@@ -49,8 +52,8 @@ const atualizarUsuario = async (req, res) => {
     } else {
       res.status(404).json({
         sucesso: false,
-        mensagem: "Usuário não encontrado"
-      })
+        mensagem: "Usuário não encontrado",
+      });
     }
   } catch (erro) {
     res.status(400).json({ sucesso: false, mensagem: erro });
@@ -73,7 +76,7 @@ const login = async (req, res) => {
       res.status(200).json({
         sucesso: true,
         tokenDeAcesso: usuarioEncontrado.tokenDeAcesso,
-        detalhesUsuario: usuarioEncontrado.detalhesUsuario
+        detalhesUsuario: usuarioEncontrado.detalhesUsuario,
       });
     } else {
       res.status(401).json({
@@ -89,8 +92,29 @@ const login = async (req, res) => {
   }
 };
 
+//GET
+const verificarEmail = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const emailExiste = await verificarExistenciaEmail(email);
+    console.log(emailExiste);
+    const statusHttp = emailExiste ? 200 : 404;
+
+    res.status(statusHttp).json({
+      emailEcontrado: emailExiste,
+      email: email,
+    });
+  } catch (erro) {
+    res.status(400).json({
+      sucesso: false,
+      erro: erro,
+    });
+  }
+};
+
 module.exports = {
   registrarUsuario,
   atualizarUsuario,
   login,
+  verificarEmail
 };
