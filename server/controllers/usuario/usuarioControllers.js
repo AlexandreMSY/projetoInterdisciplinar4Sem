@@ -94,7 +94,7 @@ const login = async (req, res) => {
 
 //GET
 const verificarEmail = async (req, res) => {
-  const { email } = req.body;
+  const { email } = req.query
   try {
     const emailExiste = await verificarExistenciaEmail(email);
     console.log(emailExiste);
@@ -116,5 +116,5 @@ module.exports = {
   registrarUsuario,
   atualizarUsuario,
   login,
-  verificarEmail
+  verificarEmail,
 };
