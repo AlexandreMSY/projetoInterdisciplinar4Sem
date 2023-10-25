@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import requisicaoPost from "../../hooks/function/requisicaoPost";
+import requisicaoPost from "../../utils/apiFetch/requisicaoPost";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
@@ -36,7 +36,7 @@ const FormularioCadastro = () => {
         corpoRequisicao[nomeChave] = valor;
       }
     });
-    //const quantidadeChavesReq = Object.keys(corpoRequisicao);
+
     const resposta = await requisicaoPost(
       "http://localhost:8000/api/usuario/registrarUsuario",
       corpoRequisicao
@@ -58,11 +58,6 @@ const FormularioCadastro = () => {
       setErro("")
       navigate("/")
     }
-
-    /*const resposta = await requisicaoPost(
-      "http://localhost:8000/api/usuario/registrarUsuario",
-      corpoRequisicao
-    );*/
   };
 
   return (
