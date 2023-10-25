@@ -35,15 +35,4 @@ const atualizarUsuario = async (autenticacao, novosDados) => {
   }
 };
 
-/*const test = async () => {
-  const teste = await atualizarUsuario({
-    email: "teste@gmail.com",
-    senha: "lol"
-  }, {email: "crazy42@gmail.com"})
-
-  console.log(teste);
-}*/
-
-//test()
-
 module.exports = atualizarUsuario;
