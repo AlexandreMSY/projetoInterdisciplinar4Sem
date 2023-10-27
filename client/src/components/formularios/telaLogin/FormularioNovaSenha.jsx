@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import requisicaoPut from "../../utils/apiFetch/requisicaoPut";
-import state from "../../context/EmailContext";
+import requisicaoPut from "../../../utils/apiFetch/requisicaoPut";
+import state from "../../../context/EmailContext";
 
 const FormularioNovaSenha = () => {
   const [erro, setErro] = useState("");

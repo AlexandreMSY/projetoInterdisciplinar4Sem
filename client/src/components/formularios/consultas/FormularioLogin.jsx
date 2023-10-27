@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useSignIn } from "react-auth-kit";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import requisicaoPost from "../../utils/apiFetch/requisicaoPost";
+import requisicaoPost from "../../../utils/apiFetch/requisicaoPost";
 
 const FormularioLogin = () => {
   const [input, setInput] = useState({});
@@ -37,7 +37,7 @@ const FormularioLogin = () => {
         authState: resposta.detalhesUsuario,
       });
 
-      navigate("/agenda");
+      navigate("agenda/inicio");
     } else {
       setErro("Usuário não encontrado")
     }

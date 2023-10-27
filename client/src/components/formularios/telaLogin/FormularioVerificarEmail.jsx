@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import requisicaoGet from "../../utils/apiFetch/requisicaoGet";
-import state from "../../context/EmailContext";
+import requisicaoGet from "../../../utils/apiFetch/requisicaoGet";
+import state from "../../../context/EmailContext";
 
 const FormularioVerificarEmail = () => {
   const navigate = useNavigate();

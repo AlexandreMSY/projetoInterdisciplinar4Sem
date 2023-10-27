@@ -1,13 +1,14 @@
-#header {
-  position: absolute;
-  width: 220px;
+#header{
+  max-width: 10%;
 }
+
 #header .pro-sidebar {
   height: 100vh;
 }
 #header .closemenu {
   color: #000;
   position: absolute;
+  border: #000;
   right: 0;
   z-index: 9999;
   line-height: 20px;

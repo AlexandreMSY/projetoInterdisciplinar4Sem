@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import FormularioNovaSenha from "../components/formularios/FormularioNovaSenha";
+import FormularioNovaSenha from "../components/formularios/telaLogin/FormularioNovaSenha";
 import ContainerFormulario from "../components/ContainerFormulario";
 import state from "../context/EmailContext";
 import "bootstrap/dist/css/bootstrap.min.css";

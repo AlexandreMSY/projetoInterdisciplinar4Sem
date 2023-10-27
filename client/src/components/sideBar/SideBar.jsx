@@ -1,5 +1,7 @@
 //import useState hook to create menu collapse state
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSignOut } from 'react-auth-kit'
 
 //import react pro sidebar components
 import {
@@ -12,9 +14,10 @@ import {
 } from "react-pro-sidebar";
 
 //import icons from react icons
-import { FaList, FaRegHeart } from "react-icons/fa";
+import {  FaRegHeart } from "react-icons/fa";
 import {
   FiHome,
+  FiEdit,
   FiLogOut,
   FiArrowLeftCircle,
   FiArrowRightCircle,
@@ -28,7 +31,9 @@ import "./Header.css";
 
 const SideBar = () => {
   //create initial menuCollapse state using useState hook
-  const [menuCollapse, setMenuCollapse] = useState(false);
+  const [menuCollapse, setMenuCollapse] = useState(true);
+  const navigate = useNavigate()
+  const signOut = useSignOut()
 
   //create a custom function that will change menucollapse state from false to true and true to false
   const menuIconClick = () => {
@@ -53,10 +58,10 @@ const SideBar = () => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-              <MenuItem icon={<FiHome />}>
-                Home
+              <MenuItem icon={<FiHome />} onClick={() => navigate("inicio")}>
+                Início
               </MenuItem>
-              <MenuItem icon={<FaList />}>Category</MenuItem>
+              <MenuItem icon={<FiEdit />} onClick={() => navigate("teste")}>Cadastrar Consulta</MenuItem>
               <MenuItem icon={<FaRegHeart />}>Favourite</MenuItem>
               <MenuItem icon={<RiPencilLine />}>Author</MenuItem>
               <MenuItem icon={<BiCog />}>Settings</MenuItem>
@@ -64,7 +69,7 @@ const SideBar = () => {
           </SidebarContent>
           <SidebarFooter>
             <Menu iconShape="square">
-              <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+              <MenuItem icon={<FiLogOut />} onClick={() => signOut()}>Logout</MenuItem>
             </Menu>
           </SidebarFooter>
         </ProSidebar>

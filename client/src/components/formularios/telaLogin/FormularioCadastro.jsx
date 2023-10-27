@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import requisicaoPost from "../../utils/apiFetch/requisicaoPost";
+import requisicaoPost from "../../../utils/apiFetch/requisicaoPost";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 

@@ -10,6 +10,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import SideBar from "./components/sideBar/SideBar";
+import ConsultaContainer from "./pages/consulta/ConsultaContainer";
 import Inicio from "./pages/consulta/Inicio";
 
 const Test = () => {
@@ -34,11 +35,12 @@ const Rotas = () => (
         path="agenda"
         element={
           <RequireAuth loginPath="/">
-            <Test />
+            <ConsultaContainer/>
           </RequireAuth>
         }
       >
-        <Route path="teste" element={<>APC</>}/>
+        <Route path="inicio" element={<Inicio />}/>
+        <Route path="teste" element={<>ABC</>}/>
       </Route>
     </Routes>
   </BrowserRouter>
