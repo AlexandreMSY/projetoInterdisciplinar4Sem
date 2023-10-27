@@ -37,7 +37,7 @@ const FormularioLogin = () => {
         authState: resposta.detalhesUsuario,
       });
 
-      navigate("/secure");
+      navigate("/agenda");
     } else {
       setErro("Usuário não encontrado")
     }

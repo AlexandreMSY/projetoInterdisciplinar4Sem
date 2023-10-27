@@ -9,11 +9,18 @@ import { useAuthUser } from "react-auth-kit";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import SideBar from "./components/sideBar/SideBar";
+import Inicio from "./pages/consulta/Inicio";
 
 const Test = () => {
   const auth = useAuthUser();
-  console.log(auth());
-  return <div>{JSON.stringify(auth())}</div>;
+  const details = auth()
+
+  return (
+    <div>
+      <Inicio />
+    </div>
+  );
 };
 
 const Rotas = () => (
@@ -24,13 +31,15 @@ const Rotas = () => (
       <Route path="esquecisenha" element={<VerificarEmail />} exact />
       <Route path="esquecisenha/redefinir" element={<NovaSenha />} />
       <Route
-        path="/secure"
+        path="agenda"
         element={
           <RequireAuth loginPath="/">
             <Test />
           </RequireAuth>
         }
-      />
+      >
+        <Route path="teste" element={<>APC</>}/>
+      </Route>
     </Routes>
   </BrowserRouter>
 );
