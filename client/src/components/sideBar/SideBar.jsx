@@ -19,6 +19,7 @@ import {
   FiHome,
   FiEdit,
   FiLogOut,
+  FiList,
   FiArrowLeftCircle,
   FiArrowRightCircle,
 } from "react-icons/fi";
@@ -61,10 +62,8 @@ const SideBar = () => {
               <MenuItem icon={<FiHome />} onClick={() => navigate("inicio")}>
                 Início
               </MenuItem>
-              <MenuItem icon={<FiEdit />} onClick={() => navigate("teste")}>Cadastrar Consulta</MenuItem>
-              <MenuItem icon={<FaRegHeart />}>Favourite</MenuItem>
-              <MenuItem icon={<RiPencilLine />}>Author</MenuItem>
-              <MenuItem icon={<BiCog />}>Settings</MenuItem>
+              <MenuItem icon={<FiEdit />} onClick={() => navigate("cadastro")}><span className="text-wrap">Cadastrar Consulta</span></MenuItem>
+              <MenuItem icon={<FiList />} onClick={() => navigate("consultas")}><span className="text-wrap">Suas Consultas</span></MenuItem>
             </Menu>
           </SidebarContent>
           <SidebarFooter>

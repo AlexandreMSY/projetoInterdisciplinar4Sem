@@ -9,20 +9,9 @@ import { useAuthUser } from "react-auth-kit";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import SideBar from "./components/sideBar/SideBar";
-import ConsultaContainer from "./pages/consulta/ConsultaContainer";
+import ConsultaContainer from "./components/consulta/ConsultaContainer";
 import Inicio from "./pages/consulta/Inicio";
-
-const Test = () => {
-  const auth = useAuthUser();
-  const details = auth()
-
-  return (
-    <div>
-      <Inicio />
-    </div>
-  );
-};
+import CadastrarConsultas from "./pages/consulta/CadastrarConsultas";
 
 const Rotas = () => (
   <BrowserRouter>
@@ -35,12 +24,13 @@ const Rotas = () => (
         path="agenda"
         element={
           <RequireAuth loginPath="/">
-            <ConsultaContainer/>
+            <ConsultaContainer />
           </RequireAuth>
         }
       >
-        <Route path="inicio" element={<Inicio />}/>
-        <Route path="teste" element={<>ABC</>}/>
+        <Route index path="inicio" element={<Inicio />} />
+        <Route path="cadastro" element={<CadastrarConsultas />} />
+        <Route path="consultas" element={<>Cat</>} />
       </Route>
     </Routes>
   </BrowserRouter>

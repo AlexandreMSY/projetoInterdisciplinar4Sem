@@ -1,5 +1,6 @@
 #header{
-  max-width: 10%;
+  min-width: 0%;
+  max-width: 30%;
 }
 
 #header .pro-sidebar {
