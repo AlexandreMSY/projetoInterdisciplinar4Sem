@@ -5,10 +5,12 @@ const {
   retornarConsultas,
   atualizarConsulta,
   cancelarConsulta,
+  detalhesConsulta,
 } = require("../../controllers/consulta/consultasControllers");
 
 router.post("/registrarConsulta", registrarConsulta);
 router.get("/:id", retornarConsultas);
+router.get("/detalhesConsulta/:idConsulta", detalhesConsulta)
 router.put("/atualizarConsulta", atualizarConsulta);
 router.delete("/cancelarConsulta", cancelarConsulta);
 

@@ -2,6 +2,7 @@ const criarConsulta = require("../../services/consulta/criarConsulta");
 const servicoRetornarConsultas = require("../../services/consulta/retornarConsultas");
 const servicoAtualizarConsulta = require("../../services/consulta/atualizarConsulta");
 const servicoCancelarConsulta = require("../../services/consulta/cancelarConsulta");
+const retornarConsultaIndividual = require("../../services/consulta/retornarConsultaIndividual")
 
 //POST
 const registrarConsulta = async (req, res) => {
@@ -27,6 +28,7 @@ const registrarConsulta = async (req, res) => {
 //GET
 const retornarConsultas = async (req, res) => {
   const { id } = req.params;
+  console.log(id);
   const consultas = await servicoRetornarConsultas(id);
 
   if (consultas.length === 0) {
@@ -35,6 +37,17 @@ const retornarConsultas = async (req, res) => {
     res.status(200).json({ sucesso: true, consultas: consultas });
   }
 };
+
+const detalhesConsulta = async (req, res) => {
+  const {idConsulta} = req.params;
+  const consultas = await retornarConsultaIndividual(idConsulta)
+
+  if (consultas.length === 0) {
+    res.status(404).json({ sucesso: false, consultas: [] });
+  } else {
+    res.status(200).json({ sucesso: true, consultas: consultas });
+  }
+}
 
 //PUT
 const atualizarConsulta = async (req, res) => {
@@ -129,5 +142,6 @@ module.exports = {
   registrarConsulta,
   retornarConsultas,
   atualizarConsulta,
-  cancelarConsulta
+  cancelarConsulta,
+  detalhesConsulta
 };
