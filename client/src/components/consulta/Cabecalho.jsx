@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { FiCalendar } from "react-icons/fi";
+import dataContext from "../../context/DataContext";
 
 const Cabecalho = ({ nomePagina }) => {
   const data = () => {
@@ -14,6 +15,10 @@ const Cabecalho = ({ nomePagina }) => {
 
     return dataAtual
   };
+
+  useEffect(() => {
+    dataContext.dataAtual = data()
+  })
 
   return (
     <>

@@ -38,6 +38,7 @@ const retornarConsultas = async (req, res) => {
   }
 };
 
+//GET
 const detalhesConsulta = async (req, res) => {
   const {idConsulta} = req.params;
   const consultas = await retornarConsultaIndividual(idConsulta)
@@ -94,7 +95,7 @@ const atualizarConsulta = async (req, res) => {
       }
     }
   } catch (erro) {
-    //console.log(erro);
+    console.log(erro);
     res.status(400).json({
       sucesso: false,
       mensagem: erro,

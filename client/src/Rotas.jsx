@@ -12,6 +12,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import ConsultaContainer from "./components/consulta/ConsultaContainer";
 import Inicio from "./pages/consulta/Inicio";
 import CadastrarConsultas from "./pages/consulta/CadastrarConsultas";
+import SuasConsultas from "./pages/consulta/SuasConsultas";
 
 const Rotas = () => (
   <BrowserRouter>
@@ -30,7 +31,7 @@ const Rotas = () => (
       >
         <Route index path="inicio" element={<Inicio />} />
         <Route path="cadastro" element={<CadastrarConsultas />} />
-        <Route path="consultas" element={<>Cat</>} />
+        <Route path="consultas" element={<SuasConsultas />} />
       </Route>
     </Routes>
   </BrowserRouter>

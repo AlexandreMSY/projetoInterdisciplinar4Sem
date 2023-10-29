@@ -11,9 +11,9 @@ const ProximasConsultasSemana = (props) => {
 
   const dataSemanaQueVem = () => {
     const data = new Date();
-    data.setDate(data.getDate() + ((1 + 7 - data.getDay()) % 7 || 7));
+    const nextweek = new Date(data.getFullYear(), data.getMonth(), data.getDate() + 7);
 
-    return data;
+    return nextweek;
   };
 
   const pegarDados = async () => {
@@ -22,6 +22,8 @@ const ProximasConsultasSemana = (props) => {
       `http://localhost:8000/api/consulta/${idUsuarioLogado}`
     );
     const dadosConsulta = dados.consultas;
+
+    console.log(dadosConsulta);
 
     setConsultas(
       dadosConsulta.filter((item) => {
@@ -71,7 +73,7 @@ const ProximasConsultasSemana = (props) => {
                 .slice(0, 19)
                 .replace("T", " ");
               const hora = dataIsoString.slice(11);
-              const dia = `${data.getDay()}/${data.getMonth()}/${data.getFullYear()}`;
+              const dia = data.toISOString().slice(0, 10);
 
               return (
                 <tr>

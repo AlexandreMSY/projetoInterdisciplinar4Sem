@@ -1,17 +1,19 @@
 const Consultas = require("../../db/models/Consultas");
 const Usuarios = require("../../db/models/Usuarios");
-const procurarUsuario = require("../usuario/procurarUsuario");
+const { procurarUsuario } = require("../../services/usuario/procurarUsuario");
 //const jwt = require("jsonwebtoken");
 
 const atualizarConsulta = async (autenticacao, consultaId, novosDados) => {
   const { senha, email } = autenticacao;
-  const usuarioEncontrado = await procurarUsuario(senha, email);
+  const { usuarioEncontrado } = await procurarUsuario(email, senha);
   /*const consultaEncontrada = await Consultas.findOne({
     raw: true,
     where: {
       consulta_id: consultaId,
     },
   });*/
+
+  //console.log(usuarioEncontrado);
 
   //console.log(usuarioEncontrado);
 
@@ -33,13 +35,13 @@ const atualizarConsulta = async (autenticacao, consultaId, novosDados) => {
       //verifica se os dados a serem atualizados já estão atribuidos na coluna
       const dadosJaAtribuidos = await Consultas.findOne({
         raw: true,
-        where: verificaoDados
+        where: verificaoDados,
       });
 
       if (dadosJaAtribuidos) {
         return {
           colunasAlteradas: false,
-          mensagem: "Dados já atribuidos na coluna"
+          mensagem: "Dados já atribuidos na coluna",
         };
       }
 
