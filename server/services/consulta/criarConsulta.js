@@ -14,6 +14,7 @@ const criarConsulta = async (cadastro) => {
 
     return consulta.toJSON();
   } catch (erro) {
+    console.log(erro);
     let erros = {};
     const codigoDeErro = erro.original ? erro.original.code : undefined;
     

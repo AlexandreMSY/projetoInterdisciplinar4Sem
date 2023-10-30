@@ -1,5 +1,5 @@
 const Consultas = require("../../db/models/Consultas");
-const { procurarUsuario } = require("../usuario/procurarUsuario");
+const procurarUsuario = require("../usuario/procurarUsuario");
 
 const cancelarConsulta = async (autenticacao, consultaId) => {
   const { senha, email } = autenticacao;

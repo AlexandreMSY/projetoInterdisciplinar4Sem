@@ -2,16 +2,30 @@ const criarConsulta = require("../../services/consulta/criarConsulta");
 const servicoRetornarConsultas = require("../../services/consulta/retornarConsultas");
 const servicoAtualizarConsulta = require("../../services/consulta/atualizarConsulta");
 const servicoCancelarConsulta = require("../../services/consulta/cancelarConsulta");
-const retornarConsultaIndividual = require("../../services/consulta/retornarConsultaIndividual")
+const retornarConsultaIndividual = require("../../services/consulta/retornarConsultaIndividual");
 
 //POST
 const registrarConsulta = async (req, res) => {
+  const adicionarZero = (numero) => {
+    if (numero < 10) {
+      numero = "0" + numero;
+    }
+    return numero;
+  };
   const { usuario_id, data_hora, especialidade, observacoes } = req.body;
+  const dataHora = new Date(data_hora);
+
+  const hora = adicionarZero(dataHora.getHours());
+  const minutos = adicionarZero(dataHora.getMinutes());
+  const segundos = adicionarZero(dataHora.getSeconds());
+
+  const horaString = `${hora}:${minutos}:${segundos}`
+  const dataString = dataHora.toISOString().slice(0,10)
 
   try {
     const consulta = await criarConsulta({
       usuario_id: usuario_id,
-      data_hora: data_hora,
+      data_hora: `${dataString} ${horaString}`,
       especialidade: especialidade,
       observacoes: observacoes,
     });
@@ -27,8 +41,7 @@ const registrarConsulta = async (req, res) => {
 
 //GET
 const retornarConsultas = async (req, res) => {
-  const { id } = req.params;
-  console.log(id);
+  const id = req.params.id;
   const consultas = await servicoRetornarConsultas(id);
 
   if (consultas.length === 0) {
@@ -38,17 +51,17 @@ const retornarConsultas = async (req, res) => {
   }
 };
 
-//GET
+/*//GET
 const detalhesConsulta = async (req, res) => {
-  const {idConsulta} = req.params;
-  const consultas = await retornarConsultaIndividual(idConsulta)
+  const { idConsulta } = req.params;
+  const consultas = await retornarConsultaIndividual(idConsulta);
 
   if (consultas.length === 0) {
     res.status(404).json({ sucesso: false, consultas: [] });
   } else {
     res.status(200).json({ sucesso: true, consultas: consultas });
   }
-}
+};*/
 
 //PUT
 const atualizarConsulta = async (req, res) => {
@@ -133,7 +146,7 @@ const cancelarConsulta = async (req, res) => {
     } else {
       res.status(400).json({
         colunasApagadas: false,
-        erro: "Consulta não encontrada"
+        erro: "Consulta não encontrada",
       });
     }
   }
@@ -144,5 +157,4 @@ module.exports = {
   retornarConsultas,
   atualizarConsulta,
   cancelarConsulta,
-  detalhesConsulta
 };

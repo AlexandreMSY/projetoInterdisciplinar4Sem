@@ -10,7 +10,7 @@ const {
 
 router.post("/registrarConsulta", registrarConsulta);
 router.get("/:id", retornarConsultas);
-router.get("/detalhesConsulta/:idConsulta", detalhesConsulta)
+//router.get("/detalhesConsulta/:idConsulta", detalhesConsulta)
 router.put("/atualizarConsulta", atualizarConsulta);
 router.delete("/cancelarConsulta", cancelarConsulta);
 
