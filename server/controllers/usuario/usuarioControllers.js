@@ -1,11 +1,9 @@
 require("dotenv").config();
 const criarUsuario = require("../../services/usuario/criarUsuario");
 const servicoAtualizarUsuario = require("../../services/usuario/atualizarUsuario");
-const {
-  procurarUsuario,
-  verificarExistenciaEmail,
-} = require("../../services/usuario/procurarUsuario");
+const verificarExistenciaEmail = require("../../services/usuario/verificarExistenciaEmail");
 const servicoRedefinirSenha = require("../../services/usuario/redefinirSenha");
+const procurarUsuario = require("../../services/usuario/procurarUsuario");
 
 //POST
 const registrarUsuario = async (req, res) => {
@@ -57,7 +55,8 @@ const atualizarUsuario = async (req, res) => {
       });
     }
   } catch (erro) {
-    res.status(400).json({ sucesso: false, mensagem: erro });
+    console.log(erro);
+    res.status(400).json({ sucesso: false, mensagem: String(erro) });
   }
 };
 
@@ -65,31 +64,36 @@ const atualizarUsuario = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, senha } = req.body;
-    console.log(req.body);
-    const usuarioEncontrado = await procurarUsuario(email, senha, true);
+    const { usuarioEncontrado, tokenDeAcesso } = await procurarUsuario(
+      email,
+      senha,
+      true
+    );
 
-    //console.log(usuarioEncontrado);
-
-    if (
-      usuarioEncontrado.usuarioEncontrado &&
-      usuarioEncontrado.tokenDeAcesso
-    ) {
-      res.status(200).json({
-        sucesso: true,
-        tokenDeAcesso: usuarioEncontrado.tokenDeAcesso,
-        detalhesUsuario: usuarioEncontrado.detalhesUsuario,
-      });
-    } else {
+    if (!usuarioEncontrado) {
       res.status(401).json({
         sucesso: false,
         tokenDeAcesso: undefined,
       });
+    } else {
+      res.status(200).json({
+        sucesso: true,
+        tokenDeAcesso: tokenDeAcesso,
+        detalhesUsuario: usuarioEncontrado,
+      });
     }
   } catch (erro) {
-    res.status(400).json({
-      sucesso: false,
-      erro: erro,
-    });
+    if (erro instanceof TypeError) {
+      res.status(400).json({
+        sucesso: false,
+        erro: "Corpo da requisição não preenchido",
+      });
+    } else {
+      res.status(400).json({
+        sucesso: false,
+        erro: String(erro),
+      });
+    }
   }
 };
 
@@ -108,7 +112,7 @@ const verificarEmail = async (req, res) => {
   } catch (erro) {
     res.status(400).json({
       sucesso: false,
-      erro: erro,
+      erro: String(erro),
     });
   }
 };
@@ -128,7 +132,7 @@ const redefinirSenha = async (req, res) => {
     }
   } catch (erro) {
     console.log(erro);
-    res.status(400).json({ sucesso: false, mensagem: erro });
+    res.status(400).json({ sucesso: false, mensagem: String(erro) });
   }
 };
 
@@ -137,5 +141,5 @@ module.exports = {
   atualizarUsuario,
   login,
   verificarEmail,
-  redefinirSenha
+  redefinirSenha,
 };
