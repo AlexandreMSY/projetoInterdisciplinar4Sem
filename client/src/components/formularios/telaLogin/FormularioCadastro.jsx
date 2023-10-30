@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import requisicaoPost from "../../../utils/apiFetch/requisicaoPost";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import configData from "../../../../configData.json"
 
 const FormularioCadastro = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const FormularioCadastro = () => {
     });
 
     const resposta = await requisicaoPost(
-      "http://localhost:8000/api/usuario/registrarUsuario",
+      `${configData.API_URL}/api/usuario/registrarUsuario`,
       corpoRequisicao
     );
 

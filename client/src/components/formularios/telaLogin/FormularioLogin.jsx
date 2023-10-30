@@ -4,6 +4,7 @@ import { useSignIn } from "react-auth-kit";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import requisicaoPost from "../../../utils/apiFetch/requisicaoPost";
+import configData from "../../../../configData.json"
 
 const FormularioLogin = () => {
   const [input, setInput] = useState({});
@@ -25,7 +26,7 @@ const FormularioLogin = () => {
     };
 
     const resposta = await requisicaoPost(
-      "http://localhost:8000/api/usuario/login",
+      `${configData.API_URL}/api/usuario/login`,
       corpoRequisicao
     );
 

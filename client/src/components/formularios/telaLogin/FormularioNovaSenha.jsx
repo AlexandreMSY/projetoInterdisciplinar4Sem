@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import requisicaoPut from "../../../utils/apiFetch/requisicaoPut";
 import state from "../../../context/EmailContext";
+import configData from "../../../../configData.json"
 
 const FormularioNovaSenha = () => {
   const [erro, setErro] = useState("");
@@ -24,7 +25,7 @@ const FormularioNovaSenha = () => {
       setErro("Senhas não coincidem")
       console.log("Teste");
     }else{
-      const resposta = await requisicaoPut("http://localhost:8000/api/usuario/redefinirSenha", {
+      const resposta = await requisicaoPut(`${configData.API_URL}/api/usuario/redefinirSenha`, {
         email: email,
         novaSenha: senha
       })

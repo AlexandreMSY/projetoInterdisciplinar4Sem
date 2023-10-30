@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import requisicaoPost from "../../../utils/apiFetch/requisicaoPost"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import configData from "../../../../configData.json"
 
 const FormularioCadastroConsulta = () => {
   const [input, setInput] = useState({});
@@ -37,7 +38,7 @@ const FormularioCadastroConsulta = () => {
       return
     }
 
-    const resposta = await requisicaoPost(`http://localhost:8000/api/consulta/registrarConsulta`, {
+    const resposta = await requisicaoPost(`${configData.API_URL}/api/consulta/registrarConsulta`, {
       usuario_id: auth().usuario_id,
       data_hora: `${input.data} ${input.hora}`,
       especialidade: especialidade,
