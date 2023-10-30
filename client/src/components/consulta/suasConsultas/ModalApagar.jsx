@@ -5,7 +5,7 @@ import consultaContext from "../../../context/ConsultaContext";
 import { useSnapshot } from "valtio";
 import { useAuthUser } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
-import dataContext from "../../../context/DataContext";
+import configData from "../../../../configData.json"
 
 const ModalApagar = () => {
   const snap = useSnapshot(consultaContext);
@@ -30,7 +30,7 @@ const ModalApagar = () => {
     };
 
     const requisicao = await fetch(
-      "http://localhost:8000/api/consulta/cancelarConsulta",
+      `${configData.API_URL}/api/consulta/cancelarConsulta`,
       {
         method: "delete",
         headers: {

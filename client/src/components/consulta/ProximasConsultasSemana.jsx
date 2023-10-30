@@ -4,6 +4,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import { FiCalendar } from "react-icons/fi";
 import requisicaoGet from "../../utils/apiFetch/requisicaoGet";
 import { useAuthUser } from "react-auth-kit";
+import configData from "../../../configData.json"
 
 const ProximasConsultasSemana = (props) => {
   const auth = useAuthUser();
@@ -19,7 +20,7 @@ const ProximasConsultasSemana = (props) => {
   const pegarDados = async () => {
     const idUsuarioLogado = auth().usuario_id;
     const dados = await requisicaoGet(
-      `http://localhost:8000/api/consulta/${idUsuarioLogado}`
+      `${configData.API_URL}api/consulta/${idUsuarioLogado}`
     );
     const dadosConsulta = dados.consultas;
 

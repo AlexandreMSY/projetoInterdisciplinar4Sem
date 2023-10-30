@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import requisicaoGet from "../../../utils/apiFetch/requisicaoGet";
 import state from "../../../context/EmailContext";
+import configData from "../../../../configData.json"
 
 const FormularioVerificarEmail = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const FormularioVerificarEmail = () => {
 
   const verificarEmail = async () => {
     const email = input.email;
-    const url = `http://localhost:8000/api/usuario/verificarEmail?email=${email}`;
+    const url = `${configData}/api/usuario/verificarEmail?email=${email}`;
     const resposta = await requisicaoGet(url);
     const emailEncontrado = resposta.emailEncontrado;
 

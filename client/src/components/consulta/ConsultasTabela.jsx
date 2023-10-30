@@ -5,7 +5,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import requisicaoGet from "../../utils/apiFetch/requisicaoGet";
 import { FiTrash2, FiEdit3 } from "react-icons/fi";
 import consultaContext from "../../context/ConsultaContext";
-import ContainerConsultas from "../../pages/consulta/ContainerConsultas";
+import configData from "../../../configData.json"
 
 const ConsultasTabela = ({ onClickEditar, onClickApagar }) => {
   const auth = useAuthUser();
@@ -14,7 +14,7 @@ const ConsultasTabela = ({ onClickEditar, onClickApagar }) => {
   const obterConsultas = async () => {
     const idUsuarioLogado = auth().usuario_id;
     const resposta = await requisicaoGet(
-      `http://localhost:8000/api/consulta/${idUsuarioLogado}`
+      `${configData.API_URL}/api/consulta/${idUsuarioLogado}`
     );
 
     setConsultas(resposta.consultas);
