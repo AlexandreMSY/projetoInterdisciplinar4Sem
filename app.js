@@ -4,6 +4,7 @@ const usuarioRouter = require("./routes/usuario/usuarioRoutes");
 const consultaRouter = require("./routes/consulta/consultaRoutes")
 const { sync } = require("./db/dbConexao");
 let cors = require("cors");
+require("dotenv").config();
 
 /*
   https://stackoverflow.com/questions/70148975/why-is-req-body-undefined
@@ -17,6 +18,6 @@ app.use(cors());
 app.use("/api/usuario", usuarioRouter);
 app.use("/api/consulta", consultaRouter)
 
-app.listen(8000, () => {
-  console.log("Porta 8000");
+app.listen(process.env.SERVER_PORT, () => {
+  console.log("Porta " + process.env.SERVER_PORT);
 });
