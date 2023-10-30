@@ -5,6 +5,7 @@ const consultaRouter = require("./routes/consulta/consultaRoutes");
 const { sync } = require("./db/dbConexao");
 let cors = require("cors");
 require("dotenv").config();
+require("dotenv").config();
 
 /*
   https://stackoverflow.com/questions/70148975/why-is-req-body-undefined
