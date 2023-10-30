@@ -15,7 +15,7 @@ const ConsultasTabela = ({ onClickEditar, onClickApagar }) => {
   const obterConsultas = async () => {
     const idUsuarioLogado = auth().usuario_id;
     const resposta = await requisicaoGet(
-      `${configData}/api/consulta/${idUsuarioLogado}`
+      `${configData.API_URL}/api/consulta/${idUsuarioLogado}`
     );
 
     setConsultas(resposta.consultas);

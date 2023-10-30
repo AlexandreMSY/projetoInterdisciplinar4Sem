@@ -4,7 +4,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import ConsultasTabela from "../../components/consulta/ConsultasTabela";
 import ContainerConsultas from "./ContainerConsultas";
 import Cabecalho from "../../components/consulta/Cabecalho";
-import ModalEditar from "../../components/consulta/suasConsultas/modalEditar";
+import ModalEditar from "../../components/consulta/suasConsultas/ModalEditar";
 import consultaContext from "../../context/ConsultaContext";
 import ModalApagar from "../../components/consulta/suasConsultas/ModalApagar";
 
